@@ -1,0 +1,50 @@
+[
+{
+    "agency": "Mayor and Council",
+    "fund": "GENERAL FUND",
+    "lob": "Mayors Office",
+    "program": "MAYOR",
+    "key": "BUDGET-VACANCY DISCOUNT",
+    "value": "47"
+  },
+  {
+    "agency": "Mayor and Council",
+    "fund": "GENERAL FUND",
+    "lob": "Mayors Office",
+    "program": "MAYOR",
+    "key": "SALARIES AND WAGES",
+    "value": "178"
+  },
+  {
+    "agency": "Mayor and Council",
+    "fund": "GENERAL FUND",
+    "lob": "Mayors Office",
+    "program": "MAYOR",
+    "key": "PART TIME & TEMPORARY WAGES",
+    "value": "1400"
+  },
+  {
+    "agency": "Development Services",
+    "fund": "GENERAL FUND",
+    "lob": "Code Enforcement",
+    "program": "ABANDONED BUILDINGS",
+    "key": "HEALTH AND WELFARE INSURANCE",
+    "value": "133"
+  },
+  {
+    "agency": "Development Services",
+    "fund": "GENERAL FUND",
+    "lob": "Code Enforcement",
+    "program": "ABANDONED BUILDINGS",
+    "key": "RETIREMENT PENSION CONTRIB",
+    "value": "35"
+  },
+  {
+   "agency": "City Manager",
+   "fund": "GENERAL FUND",
+   "lob": "Policy & Executive Leadership",
+   "program": "CITY MANAGERS OFFICE",
+   "key": "TRAINING/EDUCATION",
+   "value": "9"
+ }
+]
