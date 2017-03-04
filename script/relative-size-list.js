@@ -1,5 +1,5 @@
 /* Takes in a 2-level hierarchical set of data, and renders a series of divs
-showing all of the measures sized proportinally to each other based on their 
+showing all of the measures sized proportinally to each other based on their
 value compared to the grand total. This ensures that the largest spending item
 will have the largest font.
 */
@@ -37,7 +37,8 @@ function getOptions() {
     var options = {
             L1: "program",
             L2: "key",
-            measure: "value"
+            measure: "per-capita",
+            total: "value"
         };
     return options;
 }
@@ -49,7 +50,7 @@ function processData(data) {
     var sorted = sortData(structured);
     var subTotaled = subTotalData(sorted);
     var rootElement = getRootElement();
-    
+
     rootElement = renderList(rootElement, subTotaled);
     resizeList();
 }
@@ -60,16 +61,19 @@ function structureData(data, options) {
     var l1Key = options.L1;
     var l2Key = options.L2;
     var measureKey = options.measure;
-    
+    var totalKey = options.total;
+
     var structuredData = data.map(function (element) {
        var l1 = element.hasOwnProperty(l1Key) ? element[l1Key] : null;
        var l2 = element.hasOwnProperty(l2Key) ? element[l2Key] : null;
         var measure = element.hasOwnProperty(measureKey) ? parseFloat(element[measureKey]): null;
-        
+        var total = element.hasOwnProperty(totalKey) ? parseFloat(element[totalKey]): null;
+
         return {
             L1: l1.toString().toLowerCase(),
             L2: l2.toString().toLowerCase(),
-            measure: measure
+            measure: measure,
+            total: total
         };
     });
 
@@ -78,7 +82,7 @@ function structureData(data, options) {
 
 // Sort data by L1 ASC, measure DESC
 // assumes the data is already structured with L1, L2 & measure
-function sortData(data) {   
+function sortData(data) {
     var sortedData = data.sort(function(a, b) {
         // compare L1 first, then measure descending
         if (a.L1 < b.L1) {
@@ -91,7 +95,7 @@ function sortData(data) {
             return b.measure - a.measure; // descending order
         }
     });
-    
+
     return sortedData;
 }
 
@@ -102,18 +106,18 @@ function subTotalData(data) {
     for ( i = 0; i < data.length; i++) {
         var key = data[i].L1;
         var value = data[i].measure;
-        
+
         if(!subTotals.hasOwnProperty(key))
             subTotals[key] = 0;
         subTotals[key] += value;
     }
-    
+
     // apply subtotals to each element
     var subTotaled = data.map(function (element) {
        element.l1SubTotal = subTotals[element.L1];
-        return element; 
+        return element;
     });
-    
+
     return subTotaled;
 }
 
@@ -131,12 +135,12 @@ function renderList(rootElement, data) {
         spanDetail = $("<span class='o-detail'></span>");
         spanDetail.append("<p class='o-l1'>" + element.L1 + "</p>");
         spanDetail.append("<p class='o-l2'>" + element.L2 + "</p>");
-        spanDetail.append("<p class='o-total'>Total: $" + element.l1SubTotal.toLocaleString() + "</p>");
-        
+        spanDetail.append("<p class='o-total'>Total: $" + element.total.toLocaleString() + "</p>");
+
         rowDiv.append(spanMeasure);
         rowDiv.append(spanDetail);
-        rootElement.append(rowDiv); 
-    });    
+        rootElement.append(rowDiv);
+    });
 
     return rootElement;
 }
@@ -145,27 +149,27 @@ function renderList(rootElement, data) {
 function resizeList() {
     rootElement = getRootElement();
     elementsToResize = getResizeElements(rootElement);
-    
+
     var maxWidth = 1800;
     var defaultScaler = 10.5; //scaler - multiplication factor for fonts
     var minScaler = 2.2;
 
-    
+
     var newWidth = Math.min($(window).width(), maxWidth); // sets max for width calc
     var scaler = Math.max(defaultScaler * newWidth / maxWidth, minScaler); // min scale
-    
+
     elementsToResize.each(function(k,v) {
         var valSpan = $(v).children('.o-value')[0];
         var value = $(valSpan).text();
         var fontSize = getFontSize(value, scaler);
         $(v).css('font-size', fontSize + 'px');
     });
-    
+
 }
 
 function getFontSize(val, scaler) {
     var minSize = 11; // minimum font size
-    
+
 
     var pc = String(val);
     var str = pc.replace(',', ''); // "100.01"
@@ -177,16 +181,16 @@ function getFontSize(val, scaler) {
 
     var size = Math.sqrt((val) / (.7*( (.56 * numeralCount) + (.27*nonNumerals) ))); // font size function
     var fontSize = scaler * size;
-          
+
     return Math.max(fontSize, minSize);
-    
+
 }
 
 
 
 // helpers
 function output(message) {
-  alert(message);  
+  alert(message);
 }
 // run on load
 $(function () {
@@ -212,11 +216,11 @@ Credit: https://www.nytimes.com/interactive/2014/01/19/us/budget-proposal.html
         var minScaler = 2.2;
         var scaler = defaultScaler;
         var minSize = 11;
-          
+
           // size fonts
           hitBreakpoint();
-          
-        
+
+
         // resize fonts
         function hitBreakpoint() {
           var newWidth = $(window).width() > defaultWidth ? defaultWidth : $(window).width();
@@ -227,7 +231,7 @@ Credit: https://www.nytimes.com/interactive/2014/01/19/us/budget-proposal.html
             $(v).css('font-size', fontSize + 'px');
           })
         }
-        
+
         // copied from render-template
         function getFontSize(val) {
           var pc = String(Math.round(val));
@@ -237,13 +241,13 @@ Credit: https://www.nytimes.com/interactive/2014/01/19/us/budget-proposal.html
           var numerals = str.replace('.','').length; // number of numerals
           var roundNum = Math.round(val); // non-decimal number: 230
           var nonNumerals = Math.floor((String(roundNum).length-1) / 3) + periods; // count of periods and commas
-          
+
           var size = Math.sqrt((val) / (.7*( (.56*numerals) + (.27*nonNumerals) ))); // font size function
           var fontSize = scaler * size;
-          
+
           return fontSize < minSize ? minSize : fontSize;
         }
-        
+
         //PageManager.on("nyt:page-breakpoint", hitBreakpoint);
         $(window).on('resize', _.debounce(hitBreakpoint));
         */
