@@ -1,11 +1,12 @@
 [
-{
+  {
     "agency": "Mayor and Council",
     "fund": "GENERAL FUND",
     "lob": "Mayors Office",
     "program": "MAYOR",
     "key": "BUDGET-VACANCY DISCOUNT",
-    "value": "47"
+    "value": "4700",
+    "per-capita": "47"
   },
   {
     "agency": "Mayor and Council",
@@ -13,7 +14,8 @@
     "lob": "Mayors Office",
     "program": "MAYOR",
     "key": "SALARIES AND WAGES",
-    "value": "178"
+    "value": "17000000",
+    "per-capita": "1780"
   },
   {
     "agency": "Mayor and Council",
@@ -21,7 +23,8 @@
     "lob": "Mayors Office",
     "program": "MAYOR",
     "key": "PART TIME & TEMPORARY WAGES",
-    "value": "1400"
+    "value": "140000",
+    "per-capita": "1400"
   },
   {
     "agency": "Development Services",
@@ -29,7 +32,8 @@
     "lob": "Code Enforcement",
     "program": "ABANDONED BUILDINGS",
     "key": "HEALTH AND WELFARE INSURANCE",
-    "value": "133"
+    "value": "13300",
+    "per-capita": "1330"
   },
   {
     "agency": "Development Services",
@@ -37,14 +41,16 @@
     "lob": "Code Enforcement",
     "program": "ABANDONED BUILDINGS",
     "key": "RETIREMENT PENSION CONTRIB",
-    "value": "35"
+    "value": "3500",
+    "per-capita": "35"
   },
   {
-   "agency": "City Manager",
-   "fund": "GENERAL FUND",
-   "lob": "Policy & Executive Leadership",
-   "program": "CITY MANAGERS OFFICE",
-   "key": "TRAINING/EDUCATION",
-   "value": "9"
- }
+    "agency": "City Manager",
+    "fund": "GENERAL FUND",
+    "lob": "Policy & Executive Leadership",
+    "program": "CITY MANAGERS OFFICE",
+    "key": "TRAINING/EDUCATION",
+    "value": "900",
+    "per-capita": "9"
+  }
 ]
